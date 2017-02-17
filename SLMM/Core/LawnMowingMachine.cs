@@ -41,7 +41,7 @@ namespace SLMM.Core
         public void TurnRight()
         {
             Logger.Info($"{DateTime.UtcNow} - Start turn right - ({PositionX}, {PositionY})");
-            Thread.Sleep(15);
+            //Thread.Sleep(15000);
             unchecked { _orientation++; }
             Logger.Info($"{DateTime.UtcNow} - End turn right - ({PositionX}, {PositionY})");
         }
@@ -49,7 +49,7 @@ namespace SLMM.Core
         public void TrunLeft()
         {
             Logger.Info($"{DateTime.UtcNow} - Start turn left - ({PositionX}, {PositionY})");
-            Thread.Sleep(15);
+            //Thread.Sleep(15000);
             unchecked { _orientation--; }
             Logger.Info($"{DateTime.UtcNow} - End turn left - ({PositionX}, {PositionY})");
         }
@@ -96,14 +96,14 @@ namespace SLMM.Core
                     throw new NotSupportedException();
             }
 
-            Thread.Sleep(30);
+            //Thread.Sleep(30000);
             Logger.Info($"{DateTime.UtcNow} - End move - ({PositionX}, {PositionY})");
         }
 
         public void Mow()
         {
             Logger.Info($"{DateTime.UtcNow} - Start mow - ({PositionX}, {PositionY})");
-            Thread.Sleep(120);
+            //Thread.Sleep(120000);
             Logger.Info($"{DateTime.UtcNow} - End mow - ({PositionX}, {PositionY})");
         }
     }

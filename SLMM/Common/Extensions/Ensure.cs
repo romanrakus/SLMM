@@ -33,13 +33,13 @@ namespace SLMM.Common.Extensions
         public static void GreaterZero(int argument, string argumentName)
         {
             if (argument <= 0)
-                throw new InvalidOperationException($"'{argumentName}' should be greater than zero.");
+                throw new ArgumentException($"'{argumentName}' should be greater than zero.");
         }
 
         public static void GreaterOrEqualZero(int argument, string argumentName)
         {
             if (argument < 0)
-                throw new InvalidOperationException($"'{argumentName}' should be greater or equal zero.");
+                throw new ArgumentException($"'{argumentName}' should be greater or equal zero.");
         }
     }
 }

@@ -29,5 +29,17 @@ namespace SLMM.Common.Extensions
             if (argument.Any(t => t == null))
                 throw new ArgumentException(argumentName);
         }
+
+        public static void GreaterZero(int argument, string argumentName)
+        {
+            if (argument <= 0)
+                throw new InvalidOperationException($"'{argumentName}' should be greater than zero.");
+        }
+
+        public static void GreaterOrEqualZero(int argument, string argumentName)
+        {
+            if (argument < 0)
+                throw new InvalidOperationException($"'{argumentName}' should be greater or equal zero.");
+        }
     }
 }

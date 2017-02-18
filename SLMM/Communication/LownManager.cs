@@ -12,6 +12,7 @@ namespace SLMM.Communication
 
         private ILawnMowingMachine _machine;
         private Action _currentAction;
+        private bool _initialized;
 
         private CancellationTokenSource _cancelSource;
 
@@ -40,20 +41,24 @@ namespace SLMM.Communication
                 }
             });
             machineThread.Start();
+            _initialized = true;
         }
 
         public void MoveBy(int steps)
         {
+            EnsureIntialized();
             _commands.Enqueue(() => _machine.MoveBy(steps));
         }
 
         public KeyValuePair<int, int> GetLocation()
         {
-            throw new NotImplementedException();
+            EnsureIntialized();
+            return new KeyValuePair<int, int>(_machine.PositionX, _machine.PositionY);
         }
 
         public void Rotate(Rotation rotation)
         {
+            EnsureIntialized();
             _commands.Enqueue(() =>
             {
                 //TODO: Replace this logic by smart algorithm
@@ -66,17 +71,20 @@ namespace SLMM.Communication
 
         public Rotation GetCurrentPosition()
         {
+            EnsureIntialized();
             return _machine.Rotation;
         }
 
         public void Mow(bool on)
         {
-            if(!on) return;
+            EnsureIntialized();
+            if (!on) return;
             _commands.Enqueue(_machine.Mow);
         }
 
         public bool IsMowing()
         {
+            EnsureIntialized();
             return _currentAction != null && _currentAction == _machine.Mow;
         }
 
@@ -84,6 +92,12 @@ namespace SLMM.Communication
         {
             _cancelSource.Cancel();
             _cancelSource.Dispose();
+        }
+
+        public void EnsureIntialized()
+        {
+            if (!_initialized)
+                throw new InvalidOperationException("Initialization required.");
         }
     }
 }

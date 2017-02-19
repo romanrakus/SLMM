@@ -53,7 +53,7 @@ namespace SLMM.Core
             Logger.Info($"{DateTime.UtcNow} - End turn left - ({PositionX}, {PositionY})");
         }
 
-        public object MoveBy(int steps)
+        public void MoveBy(int steps)
         {
             Ensure.GreaterZero(steps, nameof(steps));
 

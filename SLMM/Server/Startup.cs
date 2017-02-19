@@ -1,5 +1,10 @@
-﻿using System.Web.Http;
+﻿using System.Reflection;
+using System.Web.Http;
+using Ninject;
+using Ninject.Web.Common.OwinHost;
+using Ninject.Web.WebApi.OwinHost;
 using Owin;
+using SLMM.Communication;
 
 namespace SLMM.Server
 {
@@ -15,8 +20,17 @@ namespace SLMM.Server
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            appBuilder.UseNinjectMiddleware(CreateKernel).UseNinjectWebApi(config);
             appBuilder.UseWebApi(config);
         }
 
+        private static StandardKernel CreateKernel()
+        {
+            var kernel = new StandardKernel();
+            kernel.Load(Assembly.GetExecutingAssembly());
+
+            kernel.Bind<ILownManager>().To<LownManager>().InSingletonScope();
+            return kernel;
+        }
     }
 }

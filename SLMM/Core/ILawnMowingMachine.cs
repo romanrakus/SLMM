@@ -8,7 +8,7 @@
 
         void TrunLeft();
         void TurnRight();
-        object MoveBy(int steps);
+        void MoveBy(int steps);
         void Mow();
     }
 }

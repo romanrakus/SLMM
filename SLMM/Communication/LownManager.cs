@@ -8,6 +8,7 @@ namespace SLMM.Communication
 {
     public class LownManager : ILownManager
     {
+        private static readonly object SyncRoot = new object();
         private readonly ConcurrentQueue<Action> _commands = new ConcurrentQueue<Action>();
 
         private ILawnMowingMachine _machine;
@@ -18,30 +19,39 @@ namespace SLMM.Communication
 
         public void Init(ILawnMowingMachine machine)
         {
-            _machine = machine;
-            
-            _cancelSource = new CancellationTokenSource();
-            var machineThread = new Thread(() =>
+            lock (SyncRoot)
             {
-                while (true)
+                //Cancel old execution
+                if (_initialized)
+                    _cancelSource.Cancel();
+
+                _cancelSource = new CancellationTokenSource();
+                var machineThread = new Thread(() =>
                 {
-                    Action action;
-                    while (_commands.TryDequeue(out action))
+                    while (true)
                     {
+                        Action action;
+                        while (_commands.TryDequeue(out action))
+                        {
+                            if (_cancelSource.Token.IsCancellationRequested)
+                                return;
+
+                            _currentAction = action;
+                            _currentAction();
+                        }
+
                         if (_cancelSource.Token.IsCancellationRequested)
                             return;
-                        _currentAction = action;
-                        _currentAction();
+
+                        Thread.Sleep(1000);
                     }
+                });
+                machineThread.IsBackground = true;
+                machineThread.Start();
 
-                    if (_cancelSource.Token.IsCancellationRequested)
-                        return;
-
-                    Thread.Sleep(1000);
-                }
-            });
-            machineThread.Start();
-            _initialized = true;
+                _machine = machine;
+                _initialized = true;
+            }
         }
 
         public void MoveBy(int steps)
@@ -101,3 +111,4 @@ namespace SLMM.Communication
         }
     }
 }
+ 

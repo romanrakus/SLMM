@@ -1,21 +1,30 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
+using SLMM.Communication;
 using SLMM.Core;
 
 namespace SLMM.Server.Controllers
 {
     public class RotationController : ApiController
     {
-        [HttpPut]
-        public async Task<IHttpActionResult> Rotate([FromBody]Rotation direction)
+        private readonly ILownManager _lownManager;
+
+        public RotationController(ILownManager lownManager)
         {
+            _lownManager = lownManager;
+        }
+
+        [HttpPut]
+        public IHttpActionResult Rotate([FromBody]Rotation direction)
+        {
+            _lownManager.Rotate(direction);
             return Ok();
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> GetRotation()
+        public IHttpActionResult GetRotation()
         {
-            return Ok();
+            return Ok(_lownManager.GetCurrentPosition());
         }
     }
 }

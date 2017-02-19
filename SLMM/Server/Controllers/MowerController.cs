@@ -1,20 +1,28 @@
-﻿using System.Threading.Tasks;
-using System.Web.Http;
+﻿using System.Web.Http;
+using SLMM.Communication;
 
 namespace SLMM.Server.Controllers
 {
     public class MowerController : ApiController
     {
-        [HttpPut]
-        public async Task<IHttpActionResult> Switch([FromBody]bool on)
+        private readonly ILownManager _lownManager;
+
+        public MowerController(ILownManager lownManager)
         {
+            _lownManager = lownManager;
+        }
+
+        [HttpPut]
+        public IHttpActionResult Switch([FromBody]bool on)
+        {
+            _lownManager.Mow(on);
             return Ok();
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> GetStatus()
+        public IHttpActionResult GetStatus()
         {
-            return Ok();
+            return Ok(_lownManager.IsMowing());
         }
     }
 }

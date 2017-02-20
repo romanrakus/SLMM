@@ -113,6 +113,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\AddCorrelationIdToResponseHandler.cs" />
     <Compile Include="Controllers\MowerController.cs" />
     <Compile Include="Controllers\RotationController.cs" />
     <Compile Include="Controllers\LocationController.cs" />

@@ -5,6 +5,7 @@ using Ninject.Web.Common.OwinHost;
 using Ninject.Web.WebApi.OwinHost;
 using Owin;
 using SLMM.Communication;
+using SLMM.Server.Helpers;
 
 namespace SLMM.Server
 {
@@ -14,6 +15,7 @@ namespace SLMM.Server
         {
             // Configure Web API for self-host. 
             HttpConfiguration config = new HttpConfiguration();
+            config.MessageHandlers.Add(new AddCorrelationIdToResponseHandler());
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "{controller}/{id}",

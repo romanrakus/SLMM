@@ -57,7 +57,13 @@ namespace SLMM.Communication
         public void MoveBy(int steps)
         {
             EnsureIntialized();
-            _commands.Enqueue(() => _machine.MoveBy(steps));
+            _commands.Enqueue(() =>
+            {
+                for (var i = 0; i < steps; i++)
+                {
+                    _machine.MoveBy();
+                }
+            });
         }
 
         public KeyValuePair<int, int> GetLocation()

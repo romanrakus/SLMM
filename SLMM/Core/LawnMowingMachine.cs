@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using SLMM.Common.Extensions;
 using SLMM.Common.Logging;
 
@@ -36,11 +37,10 @@ namespace SLMM.Core
 
         public Rotation Rotation => (Rotation)(_orientation % 4);
 
-
         public void TurnRight()
         {
             Logger.Info($"{DateTime.UtcNow} - Start turn right - ({PositionX}, {PositionY})");
-            //Thread.Sleep(15000);
+            Thread.Sleep(15000);
             unchecked { _orientation++; }
             Logger.Info($"{DateTime.UtcNow} - End turn right - ({PositionX}, {PositionY})");
         }
@@ -48,15 +48,13 @@ namespace SLMM.Core
         public void TrunLeft()
         {
             Logger.Info($"{DateTime.UtcNow} - Start turn left - ({PositionX}, {PositionY})");
-            //Thread.Sleep(15000);
+            Thread.Sleep(15000);
             unchecked { _orientation--; }
             Logger.Info($"{DateTime.UtcNow} - End turn left - ({PositionX}, {PositionY})");
         }
 
-        public void MoveBy(int steps)
+        public void MoveBy()
         {
-            Ensure.GreaterZero(steps, nameof(steps));
-
             Logger.Info($"{DateTime.UtcNow} - Start move - ({PositionX}, {PositionY})");
 
             int newY;
@@ -64,28 +62,28 @@ namespace SLMM.Core
             switch (Rotation)
             {
                 case Rotation.North:
-                    newY = PositionY + steps;
+                    newY = PositionY + 1;
                     if (newY > _sizeY)
                         throw new IndexOutOfRangeException("Cannot move out of garden.");
                     PositionY = newY;
                     break;
 
                 case Rotation.East:
-                    newX = PositionX + steps;
+                    newX = PositionX + 1;
                     if (newX > _sizeX)
                         throw new IndexOutOfRangeException("Cannot move out of garden.");
                     PositionX = newX;
                     break;
 
                 case Rotation.South:
-                    newY = PositionY - steps;
+                    newY = PositionY - 1;
                     if (newY < 0)
                         throw new IndexOutOfRangeException("Cannot move out of garden.");
                     PositionY = newY;
                     break;
 
                 case Rotation.West:
-                    newX = PositionX - steps;
+                    newX = PositionX - 1;
                     if (newX < 0)
                         throw new IndexOutOfRangeException("Cannot move out of garden.");
                     PositionX = newX;
@@ -95,14 +93,14 @@ namespace SLMM.Core
                     throw new NotSupportedException();
             }
 
-            //Thread.Sleep(30000);
+            Thread.Sleep(30000);
             Logger.Info($"{DateTime.UtcNow} - End move - ({PositionX}, {PositionY})");
         }
 
         public void Mow()
         {
             Logger.Info($"{DateTime.UtcNow} - Start mow - ({PositionX}, {PositionY})");
-            //Thread.Sleep(120000);
+            Thread.Sleep(120000);
             Logger.Info($"{DateTime.UtcNow} - End mow - ({PositionX}, {PositionY})");
         }
     }

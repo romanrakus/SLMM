@@ -70,7 +70,8 @@ namespace SLMM.Client
             if (response.IsSuccessStatusCode)
             {
                 var rotation = await response.Content.ReadAsAsync<Rotation>();
-                await Client.PutAsJsonAsync("Rotation", rotation + direction).ContinueWith(PrintResult);
+                var newRotation = (rotation + direction < 0) ? (Rotation)(4 + (int)(rotation + direction) % 4) : (Rotation)((int)(rotation + direction) % 4);
+                await Client.PutAsJsonAsync("Rotation", newRotation).ContinueWith(PrintResult);
             }
             else
             {

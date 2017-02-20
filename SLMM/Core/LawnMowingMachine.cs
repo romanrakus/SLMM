@@ -36,7 +36,7 @@ namespace SLMM.Core
         public int PositionX { get; private set; }
         public int PositionY { get; private set; }
 
-        public Rotation Rotation => (Rotation) (_orientation%4);
+        public Rotation Rotation => _orientation < 0 ? (Rotation)(4 + _orientation % 4) : (Rotation) (_orientation%4);
 
         public void TurnRight()
         {

@@ -3,11 +3,11 @@ using SLMM.Communication;
 
 namespace SLMM.Server.Controllers
 {
-    public class LoctionController : ApiController
+    public class LocationController : ApiController
     {
         private readonly ILownManager _lownManager;
 
-        public LoctionController(ILownManager lownManager)
+        public LocationController(ILownManager lownManager)
         {
             _lownManager = lownManager;
         }

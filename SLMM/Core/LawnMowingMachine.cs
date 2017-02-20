@@ -40,23 +40,23 @@ namespace SLMM.Core
 
         public void TurnRight()
         {
-            Logger.Info($"{DateTime.UtcNow} - Start turn right - ({PositionX}, {PositionY})");
+            Logger.Info($"{DateTime.UtcNow} - Start turn right - {Rotation} ({PositionX}, {PositionY})");
             Thread.Sleep(15000);
             unchecked { _orientation++; }
-            Logger.Info($"{DateTime.UtcNow} - End turn right - ({PositionX}, {PositionY})");
+            Logger.Info($"{DateTime.UtcNow} - End turn right - {Rotation} ({PositionX}, {PositionY})");
         }
 
         public void TrunLeft()
         {
-            Logger.Info($"{DateTime.UtcNow} - Start turn left - ({PositionX}, {PositionY})");
+            Logger.Info($"{DateTime.UtcNow} - Start turn left - {Rotation} ({PositionX}, {PositionY})");
             Thread.Sleep(15000);
             unchecked { _orientation--; }
-            Logger.Info($"{DateTime.UtcNow} - End turn left - ({PositionX}, {PositionY})");
+            Logger.Info($"{DateTime.UtcNow} - End turn left - {Rotation} ({PositionX}, {PositionY})");
         }
 
         public void MoveBy()
         {
-            Logger.Info($"{DateTime.UtcNow} - Start move - ({PositionX}, {PositionY})");
+            Logger.Info($"{DateTime.UtcNow} - Start move - {Rotation} ({PositionX}, {PositionY})");
 
             int newY;
             int newX;
@@ -95,14 +95,14 @@ namespace SLMM.Core
             }
 
             Thread.Sleep(30000);
-            Logger.Info($"{DateTime.UtcNow} - End move - ({PositionX}, {PositionY})");
+            Logger.Info($"{DateTime.UtcNow} - End move - {Rotation} ({PositionX}, {PositionY})");
         }
 
         public void Mow()
         {
-            Logger.Info($"{DateTime.UtcNow} - Start mow - ({PositionX}, {PositionY})");
+            Logger.Info($"{DateTime.UtcNow} - Start mow - {Rotation} ({PositionX}, {PositionY})");
             Thread.Sleep(120000);
-            Logger.Info($"{DateTime.UtcNow} - End mow - ({PositionX}, {PositionY})");
+            Logger.Info($"{DateTime.UtcNow} - End mow - {Rotation} ({PositionX}, {PositionY})");
         }
     }
 }

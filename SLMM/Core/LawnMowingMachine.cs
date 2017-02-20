@@ -10,9 +10,6 @@ namespace SLMM.Core
     {
         private static readonly ILogger Logger = LogFactory.GetLogger<LawnMowingMachine>();
 
-        private readonly int _sizeX;
-        private readonly int _sizeY;
-
         private int _orientation;
 
         public LawnMowingMachine(int sizeX, int sizeY, int positionX, int positionY)
@@ -27,22 +24,28 @@ namespace SLMM.Core
             if (positionY > sizeY)
                 throw new ArgumentOutOfRangeException(nameof(positionY));
 
-            _sizeX = sizeX;
-            _sizeY = sizeY;
+            SizeX = sizeX;
+            SizeY = sizeY;
             PositionX = positionX;
             PositionY = positionY;
         }
 
+        public int SizeX { get; }
+        public int SizeY { get; }
+
         public int PositionX { get; private set; }
         public int PositionY { get; private set; }
 
-        public Rotation Rotation => (Rotation)(_orientation % 4);
+        public Rotation Rotation => (Rotation) (_orientation%4);
 
         public void TurnRight()
         {
             Logger.Info($"{DateTime.UtcNow} - Start turn right - {Rotation} ({PositionX}, {PositionY})");
             Thread.Sleep(15000);
-            unchecked { _orientation++; }
+            unchecked
+            {
+                _orientation++;
+            }
             Logger.Info($"{DateTime.UtcNow} - End turn right - {Rotation} ({PositionX}, {PositionY})");
         }
 
@@ -50,7 +53,10 @@ namespace SLMM.Core
         {
             Logger.Info($"{DateTime.UtcNow} - Start turn left - {Rotation} ({PositionX}, {PositionY})");
             Thread.Sleep(15000);
-            unchecked { _orientation--; }
+            unchecked
+            {
+                _orientation--;
+            }
             Logger.Info($"{DateTime.UtcNow} - End turn left - {Rotation} ({PositionX}, {PositionY})");
         }
 
@@ -64,14 +70,14 @@ namespace SLMM.Core
             {
                 case Rotation.North:
                     newY = PositionY + 1;
-                    if (newY > _sizeY)
+                    if (newY > SizeY)
                         throw new IndexOutOfRangeException("Cannot move out of garden.");
                     PositionY = newY;
                     break;
 
                 case Rotation.East:
                     newX = PositionX + 1;
-                    if (newX > _sizeX)
+                    if (newX > SizeX)
                         throw new IndexOutOfRangeException("Cannot move out of garden.");
                     PositionX = newX;
                     break;

@@ -23,7 +23,7 @@ namespace SLMM.Communication
 
         public void Init(ILawnMowingMachine machine)
         {
-            Logger.Info($"Starting LownManager initialization.");
+            Logger.Info($"Starting LownManager initialization of size ({machine.SizeX}, {machine.SizeY})");
             lock (SyncRoot)
             {
                 //Cancel old execution

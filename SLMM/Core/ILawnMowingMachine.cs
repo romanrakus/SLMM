@@ -1,4 +1,6 @@
-﻿namespace SLMM.Core
+﻿using SLMM.Common;
+
+namespace SLMM.Core
 {
     public interface ILawnMowingMachine
     {

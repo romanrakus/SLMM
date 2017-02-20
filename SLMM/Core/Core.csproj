@@ -43,7 +43,6 @@
     <Compile Include="ILawnMowingMachine.cs" />
     <Compile Include="LawnMowingMachine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rotation.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

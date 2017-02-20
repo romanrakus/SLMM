@@ -128,6 +128,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{F8666497-10C7-43AA-A3B2-0328EE412044}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Communication\Communication.csproj">
       <Project>{172B0B44-8330-411A-AA03-116384001DC2}</Project>
       <Name>Communication</Name>

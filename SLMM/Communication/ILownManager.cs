@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SLMM.Common;
 using SLMM.Core;
 
 namespace SLMM.Communication

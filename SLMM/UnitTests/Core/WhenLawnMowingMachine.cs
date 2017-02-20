@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using SLMM.Common;
 using SLMM.Core;
 
 namespace SLMM.UnitTests.Core

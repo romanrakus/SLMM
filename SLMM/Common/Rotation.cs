@@ -1,4 +1,4 @@
-﻿namespace SLMM.Core
+﻿namespace SLMM.Common
 {
     public enum Rotation
     {

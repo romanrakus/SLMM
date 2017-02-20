@@ -2,12 +2,15 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
+using SLMM.Common.Logging;
 using SLMM.Core;
 
 namespace SLMM.Communication
 {
     public class LownManager : ILownManager
     {
+        private static readonly ILogger Logger = LogFactory.GetLogger<LownManager>();
+
         private static readonly object SyncRoot = new object();
         private readonly ConcurrentQueue<Action> _commands = new ConcurrentQueue<Action>();
 
@@ -19,6 +22,7 @@ namespace SLMM.Communication
 
         public void Init(ILawnMowingMachine machine)
         {
+            Logger.Info($"Starting LownManager initialization.");
             lock (SyncRoot)
             {
                 //Cancel old execution

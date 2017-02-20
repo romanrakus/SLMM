@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using SLMM.Common;
 
@@ -35,11 +36,11 @@ namespace SLMM.Client
                            if (!int.TryParse(Console.ReadLine(), out steps))
                                Console.WriteLine("Invalid input. Number is expected.");
                            else
-                               await Client.PutAsJsonAsync("location", new { moveBy = steps }).ContinueWith(PrintResult);
+                               await Client.PutAsJsonAsync("location", steps).ContinueWith(PrintResult);
                        });
                         break;
                     case "ml":
-                        SaveExecution(() => Client.PutAsJsonAsync("mower", new { on = true }).ContinueWith(PrintResult));
+                        SaveExecution(() => Client.PutAsJsonAsync("mower", true).ContinueWith(PrintResult));
                         break;
                     case "exit":
                         exit = true;
@@ -69,7 +70,7 @@ namespace SLMM.Client
             if (response.IsSuccessStatusCode)
             {
                 var rotation = await response.Content.ReadAsAsync<Rotation>();
-                await Client.PutAsJsonAsync("Rotation", new { direction = rotation + direction }).ContinueWith(PrintResult);
+                await Client.PutAsJsonAsync("Rotation", rotation + direction).ContinueWith(PrintResult);
             }
             else
             {

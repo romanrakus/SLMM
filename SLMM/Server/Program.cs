@@ -5,6 +5,7 @@ namespace SLMM.Server
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             string baseAddress = "http://localhost:9000/";
